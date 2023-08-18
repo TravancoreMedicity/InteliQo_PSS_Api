@@ -262,7 +262,7 @@ app.use("/api/CommonRequestMast", CommonRequestMast)
 
 
 // ------ Database Connection --------
-console.log('kjkjh')
+
 app.listen(process.env.APP_PORT, () =>
     console.log(`Server Up and Running ${process.env.APP_PORT}`),
     infoLogger(`Server Up and Running ${process.env.APP_PORT}`)
