@@ -1213,7 +1213,96 @@ module.exports = {
     },
     getEmployeeProfileInformation: (id, callBack) => {
         pool.query(
-            `call medi_hrm.GET_PROFILE_INFORM(?)`,
+            `SELECT E.em_no,
+        E.em_id,
+			E.em_salutation,
+			E.em_name,
+			E.em_gender,
+			E.em_dob,
+			E.em_doj,
+			E.em_mobile,
+			E.em_phone,
+			E.em_email,
+			E.em_branch,
+            E.em_designation,
+            E.em_age_year,
+            E.em_retirement_date,
+            E.em_prob_end_date,
+            E.em_conf_end_date,
+            E.em_contract_end_date,
+            N.desg_name,
+			B.branch_name,
+			E.em_department,
+			D.dept_name,
+			E.em_dept_section,
+			S.sect_name,
+            ifnull(S.authorization_incharge,0)authorization_incharge,
+            ifnull(S.authorization_hod,0)authorization_hod,
+			C.ecat_name,
+            C.ecat_esi_allow,
+			E.em_conf_end_date,
+			E.em_retirement_date,
+			E.em_contract_end_date,
+			E.addressPermnt1,
+			E.addressPermnt2,
+			E.hrm_pin1,
+			E.em_region,
+			R.reg_name "per_region",
+			E.addressPresent1,
+			E.addressPresent2,
+			E.hrm_pin2,
+			E.hrm_region2,
+			P.reg_name "pres_region",
+			E.blood_slno,
+			E.hrm_religion,
+			E.hrm_profile,
+			E.contract_status,
+			E.hod,
+			E.incharge,
+			E.emp__ot,
+			E.ot_amount,
+            E.gross_salary,
+            I.em_adhar_no,
+            I.em_pan_no,
+            I.em_account_no,
+            I.em_ifsc,
+            M.bank_name,
+            I.em_maritalstatus,
+            G.relg_name,
+            O.group_name,
+            ifnull(Z.co_assign,0)co_assign,
+            T.em_pf_no,
+            T.em_uan_no,
+            T.em_esi_no,
+            T.em_grade,
+            ifnull(V.verification_required,0)verification_required,
+           ifnull( V.verification_status,0)verification_status,
+           ifnull( V.second_level_required,0)second_level_required,
+           ifnull( V.second_level_verification,0)second_level_verification,
+           Q.em_cont_start,
+           Q.em_cont_end,
+		   E.em_category,
+           C.category_slno,
+           C.emp_type,
+           C.des_type,
+           E.probation_status
+	FROM medi_hrm_pss.hrm_emp_master E
+		LEFT JOIN hrm_branch B ON B.branch_slno = E.em_branch
+		LEFT JOIN hrm_department D ON D.dept_id = E.em_department
+		LEFT JOIN hrm_dept_section S ON S.sect_id  = E.em_dept_section
+		LEFT JOIN hrm_emp_category C ON C.category_slno = E.em_category
+		LEFT JOIN hrm_region R ON R.reg_slno = E.em_region
+		LEFT JOIN hrm_region P ON P.reg_slno = E.hrm_region2
+		LEFT JOIN hrm_religion G ON G.relg_slno = E.hrm_religion
+		LEFT JOIN bloodgroup O ON O.group_slno = E.blood_slno
+        LEFT JOIN designation N ON N.desg_slno = E.em_designation
+        LEFT JOIN hrm_emp_personal I ON I.em_id = E.em_id
+        LEFT JOIN hrm_bank M ON M.bank_slno = I.em_bank
+		LEFT JOIN hrm_co_assign Z ON Z.emp_id = E.em_id
+        LEFT JOIN hrm_emp_pfesi T ON T.em_id= E.em_id
+        LEFT JOIN hrm_emp_verification V ON V.em_id=E.em_id
+        LEFT JOIN hrm_emp_contract_detl Q ON Q.em_id = E.em_id and Q.status = 0
+	WHERE E.em_status = 1 AND E.em_id = ?`,
             [
                 id
             ],
