@@ -438,7 +438,7 @@ module.exports = {
     },
     getContractByEmno: (id, callBack) => {
         pool.query(
-            `SELECT * FROM medi_hrm.hrm_emp_contract_detl where em_no=?;`,
+            `SELECT * FROM hrm_emp_contract_detl where em_no=?;`,
             [
                 id
             ],
@@ -452,7 +452,7 @@ module.exports = {
     },
     getContractDetlId: (id, callBack) => {
         pool.query(
-            `SELECT * FROM medi_hrm.hrm_emp_contract_detl where em_id=?;`,
+            `SELECT * FROM hrm_emp_contract_detl where em_id=?;`,
             [
                 id
             ],

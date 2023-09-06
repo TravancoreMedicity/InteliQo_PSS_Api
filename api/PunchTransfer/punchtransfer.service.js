@@ -20,7 +20,7 @@ module.exports = {
 
     getpunchDataHr: (data, callBack) => {
         pool.query(
-            `select * FROM medi_hrm.punch_data where 
+            `select * FROM punch_data where 
             date(punch_time)           
                       BETWEEN ? AND ?`,
             [

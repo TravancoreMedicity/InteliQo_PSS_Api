@@ -23,7 +23,7 @@ module.exports = {
     getDistrictName: (callBack) => {
         pool.query(
             `
-            SELECT dist_name,dist_slno FROM medi_hrm.hrm_district where  dist_status ='1'`,
+            SELECT dist_name,dist_slno FROM hrm_district where  dist_status ='1'`,
             [],
             (error, results, feilds) => {
                 if (error) {
@@ -156,7 +156,7 @@ module.exports = {
             `SELECT 
             lvetype_slno,
             lvetype_desc
-            FROM medi_hrm.hrm_leave_type
+            FROM hrm_leave_type
             where lvetype_desc='NATIONAL HOLIDAY' or lvetype_desc='FESTIVAL LEAVE'`,
             [],
             (error, results, feilds) => {
@@ -187,7 +187,7 @@ module.exports = {
     },
     getSerialno: (callBack) => {
         pool.query(
-            `SELECT * FROM medi_hrm.master_serialno where serial_slno=1`,
+            `SELECT * FROM master_serialno where serial_slno=1`,
             [],
             (error, results, feilds) => {
                 if (error) {
@@ -200,7 +200,7 @@ module.exports = {
     },
     getleaverequwestslno: (callBack) => {
         pool.query(
-            `SELECT * FROM medi_hrm.master_serialno where serial_slno=5`,
+            `SELECT * FROM master_serialno where serial_slno=5`,
             [],
             (error, results, feilds) => {
                 if (error) {
@@ -213,7 +213,7 @@ module.exports = {
     },
     getSerialnoempno: (callBack) => {
         pool.query(
-            `SELECT * FROM medi_hrm.master_serialno where serial_slno=2`,
+            `SELECT * FROM master_serialno where serial_slno=2`,
             [],
             (error, results, feilds) => {
                 if (error) {
@@ -450,7 +450,7 @@ module.exports = {
             hrm_earning_deduction.earnded_name,hrm_emp_earn_deduction.em_salary_desc,
             hrm_earning_type.earning_type_name,
              em_amount
-             FROM medi_hrm.hrm_emp_earn_deduction
+             FROM hrm_emp_earn_deduction
               LEFT JOIN  hrm_earning_deduction ON hrm_earning_deduction.earnded_id= hrm_emp_earn_deduction.em_salary_desc
               LEFT JOIN   hrm_earning_type ON  hrm_earning_deduction.erning_type_id= hrm_earning_type.erning_type_id 
               WHERE em_no = ? and earning_type_name='FIXED WAGES'`,
@@ -472,7 +472,7 @@ module.exports = {
             hrm_earning_deduction.earnded_name,hrm_emp_earn_deduction.em_salary_desc,
             hrm_earning_type.earning_type_name,
              em_amount
-             FROM medi_hrm.hrm_emp_earn_deduction
+             FROM hrm_emp_earn_deduction
               LEFT JOIN  hrm_earning_deduction ON hrm_earning_deduction.earnded_id= hrm_emp_earn_deduction.em_salary_desc
               LEFT JOIN   hrm_earning_type ON  hrm_earning_deduction.erning_type_id= hrm_earning_type.erning_type_id 
               WHERE em_no = ? and earning_type_name='EARNINGS'`,
@@ -494,7 +494,7 @@ module.exports = {
             hrm_earning_deduction.earnded_name,hrm_emp_earn_deduction.em_salary_desc,
             hrm_earning_type.earning_type_name,
              em_amount
-             FROM medi_hrm.hrm_emp_earn_deduction
+             FROM hrm_emp_earn_deduction
               LEFT JOIN  hrm_earning_deduction ON hrm_earning_deduction.earnded_id= hrm_emp_earn_deduction.em_salary_desc
               LEFT JOIN   hrm_earning_type ON  hrm_earning_deduction.erning_type_id= hrm_earning_type.erning_type_id 
               WHERE em_no = ? and earning_type_name='DEDUCTION'`,
@@ -515,7 +515,7 @@ module.exports = {
             `SELECT wagelog_slno,em_salary_desc,last_wage,new_wage,
             DATE_FORMAT(changed_date, '%d-%m-%Y')changed_date,emp_id,hrm_earning_deduction.earnded_name,
             (new_wage-last_wage)new_change
-            FROM medi_hrm.hrm_emp_wage_log
+            FROM hrm_emp_wage_log
             left join hrm_earning_deduction
             on hrm_emp_wage_log.em_salary_desc=hrm_earning_deduction.earnded_id
             where emp_id=? and last_wage is not null`,
@@ -533,7 +533,7 @@ module.exports = {
 
     getFineSlno: (callBack) => {
         pool.query(
-            `SELECT * FROM medi_hrm.master_serialno where serial_slno=3`,
+            `SELECT * FROM master_serialno where serial_slno=3`,
             [],
             (error, results, feilds) => {
                 if (error) {
@@ -546,7 +546,7 @@ module.exports = {
     },
     getprocess: (callBack) => {
         pool.query(
-            `SELECT * FROM medi_hrm.master_serialno where serial_slno=4`,
+            `SELECT * FROM master_serialno where serial_slno=4`,
             [],
             (error, results, feilds) => {
                 if (error) {
@@ -871,7 +871,7 @@ module.exports = {
             `SELECT 
             board_slno,
             board_name
-        FROM  medi_hrm.hrm_board WHERE education_slno =? `,
+        FROM  hrm_board WHERE education_slno =? `,
             [
                 id
             ],
@@ -891,7 +891,7 @@ module.exports = {
             em_name,
             em_no,
         em_id
-         FROM medi_hrm.hrm_emp_master
+         FROM hrm_emp_master
          WHERE em_dept_section =?
          and em_status=1 and em_id!=1 and em_no!=2 `,
             [
@@ -944,7 +944,7 @@ module.exports = {
     getDeptsecthod: (id, callBack) => {
         pool.query(
             `select dept_section, sect_name from 
-            medi_hrm.hrm_authorization_assign
+            hrm_authorization_assign
             left join hrm_dept_section on hrm_dept_section.sect_id = hrm_authorization_assign.dept_section
             where emp_id =?
             and auth_post = 1`,
@@ -994,7 +994,7 @@ module.exports = {
     },
     getShiftdata: (id, callBack) => {
         pool.query(
-            `SELECT punch_time FROM medi_hrm.punch_data WHERE emp_code = ? AND punch_time BETWEEN ? AND ?`,
+            `SELECT punch_time FROM punch_data WHERE emp_code = ? AND punch_time BETWEEN ? AND ?`,
             [
                 id.em_no, id.date2, id.date1,
             ],
@@ -1181,7 +1181,7 @@ module.exports = {
     //get leave count
     getLeaveCount: (id, callBack) => {
         pool.query(
-            `call medi_hrm.GET_LEAVECOUNT(?)`,
+            `call GET_LEAVECOUNT(?)`,
             [id],
             (error, results, fields) => {
                 if (error) {
@@ -1198,7 +1198,7 @@ module.exports = {
             em_name,
             em_no,
             em_id
-         FROM medi_hrm.hrm_emp_master
+         FROM hrm_emp_master
          WHERE  em_id =? `,
             [
                 id
@@ -1339,9 +1339,9 @@ module.exports = {
     getfrndenddata: (id, callBack) => {
         pool.query(
             ` select sum(sumamount) fineamunt,sum(plan_slno) dutyplan from (
-                SELECT 0 sumamount,count(plan_slno) plan_slno FROM medi_hrm.hrm_duty_plan where emp_id=? and  MONTH((duty_day))  = MONTH(CURDATE()) and YEAR((duty_day))  = YEAR(CURDATE()) and shift_id=0
+                SELECT 0 sumamount,count(plan_slno) plan_slno FROM hrm_duty_plan where emp_id=? and  MONTH((duty_day))  = MONTH(CURDATE()) and YEAR((duty_day))  = YEAR(CURDATE()) and shift_id=0
                 union all
-                SELECT ifnull(sum(fine_amount),0) sumamount,0 FROM medi_hrm.hrm_emp_fine_mast where fine_emp_id=? and fine_status='0')a`,
+                SELECT ifnull(sum(fine_amount),0) sumamount,0 FROM hrm_emp_fine_mast where fine_emp_id=? and fine_status='0')a`,
             [
                 id, id
             ],
@@ -1362,7 +1362,7 @@ module.exports = {
             em_name,         
             em_id,
             hrm_emp_category.emp_type
-           FROM medi_hrm.hrm_emp_master
+           FROM hrm_emp_master
            LEFT JOIN hrm_emp_category on hrm_emp_category.category_slno=hrm_emp_master.em_category
            WHERE em_dept_section =? `,
             [
@@ -1456,7 +1456,7 @@ module.exports = {
     },
     getadvancerequestSlno: (callBack) => {
         pool.query(
-            `SELECT * FROM medi_hrm.master_serialno where serial_slno=6`,
+            `SELECT * FROM master_serialno where serial_slno=6`,
             [],
             (error, results, feilds) => {
                 if (error) {
