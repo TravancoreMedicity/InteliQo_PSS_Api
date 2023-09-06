@@ -4,7 +4,7 @@ const pool = require('../../config/database');
 module.exports = {
     getEducation: (callBack) => {
         pool.query(
-            `SELECT edu_slno, edu_desc FROM medi_hrm.hrm_mast_education`,
+            `SELECT edu_slno, edu_desc FROM hrm_mast_education`,
             [],
             (error, results, fields) => {
                 if (error) {
@@ -33,7 +33,7 @@ module.exports = {
             hrm_mast_course.cour_desc,
             hrm_mast_specializtion.spec_desc,
             case when em_gender = 1 then 'male'when  em_gender = 2 then 'female' else 'Not Updated' end as 'Gender'
-            FROM medi_hrm.hrm_emp_master
+            FROM hrm_emp_master
             left join bloodgroup on  hrm_emp_master.blood_slno = bloodgroup.group_slno
             left join hrm_department on hrm_emp_master.em_department = hrm_department.dept_id
             left join hrm_dept_section on hrm_emp_master.em_dept_section = hrm_dept_section.sect_id
@@ -64,7 +64,7 @@ module.exports = {
     getCourseById: (data, callBack) => {
         pool.query(
             //`SELECT cour_slno, cour_desc FROM medi_hrm.hrm_mast_course where edu_slno IN (?) `,
-            `SELECT * FROM medi_hrm.hrm_mast_course`,
+            `SELECT * FROM hrm_mast_course`,
             [
                 data
             ],
@@ -95,7 +95,7 @@ module.exports = {
             hrm_mast_course.cour_desc,
             hrm_mast_specializtion.spec_desc,
             case when em_gender = 1 then 'male'when  em_gender = 2 then 'female' else 'Not Updated' end as 'Gender'
-            FROM medi_hrm.hrm_emp_master
+            FROM hrm_emp_master
             left join bloodgroup on  hrm_emp_master.blood_slno = bloodgroup.group_slno
             left join hrm_department on hrm_emp_master.em_department = hrm_department.dept_id
             left join hrm_dept_section on hrm_emp_master.em_dept_section = hrm_dept_section.sect_id
@@ -126,7 +126,7 @@ module.exports = {
     getSpecializationById: (data, callBack) => {
         pool.query(
             // `SELECT spec_slno,spec_desc FROM medi_hrm.hrm_mast_specializtion  where cour_slno IN (?)`,
-            ` SELECT * FROM medi_hrm.hrm_mast_specializtion`,
+            ` SELECT * FROM hrm_mast_specializtion`,
             [
                 data
             ],
@@ -160,7 +160,7 @@ module.exports = {
             hrm_mast_course.cour_desc,
             hrm_mast_specializtion.spec_desc,
             case when em_gender = 1 then 'male'when  em_gender = 2 then 'female' else 'Not Updated' end as 'Gender'
-            FROM medi_hrm.hrm_emp_master
+            FROM hrm_emp_master
             left join bloodgroup on  hrm_emp_master.blood_slno = bloodgroup.group_slno
             left join hrm_department on hrm_emp_master.em_department = hrm_department.dept_id
             left join hrm_dept_section on hrm_emp_master.em_dept_section = hrm_dept_section.sect_id
