@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { checkToken } = require("../../auth/token_validation");
 const { employeeinsert, employeeupdate, getemplpyee, employeeGetById,
-    employeedelete, login, changePassword } = require('../employee/employee.controller');
+    employeedelete, login, changePassword, } = require('../employee/employee.controller');
 
 router.post("/login", login);
 router.post('/', checkToken, employeeinsert);
